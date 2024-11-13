@@ -132,7 +132,7 @@ while frameNo < 15:
     plt.draw()
 
     # Exit if ESC is pressed
-    if cv2.waitKey(1) & 0xFF == 27:  # 30 ms delay for smooth playback
+    if cv2.waitKey(10) & 0xFF == 27:  # 10 ms delay for smooth playback
        break
 
     frameNo += 1
