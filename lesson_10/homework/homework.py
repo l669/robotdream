@@ -158,4 +158,5 @@ cv2.destroyAllWindows()
 # However the processing speed is the key factor in robotics and machinery MV inspection applications
 # and KSF looks pretty good for i
 # CSRT is amazingly robust  but works relatively slow
-# 
+# MIL tracker should be invariant to background changes but it is not so robust as CSRT with about the same speed
+
