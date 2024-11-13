@@ -16,10 +16,19 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 # Load the video
-video_name='video1t.mp4'
-working_dir = 'C:/users/admin/Documents/math_for_DS/Machine Vision/Computer-Vision-v2/lesson_10/homework/video/'
 
-video_path = working_dir+video_name
+video_name = 'video1t.mp4'
+
+base_dir = 'C:/users/admin/Documents/math_for_DS/Machine Vision/Computer-Vision-v2/lesson_10/homework/'
+
+
+video_dir = os.path.join(base_dir, 'video')
+frame_dir = os.path.join(base_dir, 'frames')
+if not os.path.exists(frame_dir):
+    os.makedirs(frame_dir)
+
+video_path = os.path.join(video_dir, video_name)
+
 cap = cv2.VideoCapture(video_path)
 if not cap.isOpened():
     print("Error: Could not open video.")
@@ -59,24 +68,16 @@ tracker_type = tracker_types[2]
 if int(minor_ver) < 3:
         tracker = cv2.Tracker_create(tracker_type)
 else:
-    if tracker_type == 'BOOSTING':
-        tracker = cv2.TrackerBoosting_create()
     if tracker_type == 'MIL':
         tracker = cv2.TrackerMIL_create()
     if tracker_type == 'KCF':
         tracker = cv2.TrackerKCF_create()
-    if tracker_type == 'TLD':
-        tracker = cv2.TrackerTLD_create()
-    if tracker_type == 'MEDIANFLOW':
-        tracker = cv2.TrackerMedianFlow_create()
-    if tracker_type == 'GOTURN':
-        tracker = cv2.TrackerGOTURN_create()
-    if tracker_type == 'MOSSE':
-        tracker = cv2.TrackerMOSSE_create()
     if tracker_type == "CSRT":
         tracker = cv2.TrackerCSRT_create()
 
-
+tracker_frame_dir = os.path.join(frame_dir, tracker_type)
+if not os.path.exists(tracker_frame_dir):
+    os.makedirs(tracker_frame_dir)
 
 
 # ### Step 3
@@ -85,6 +86,12 @@ else:
 ok = tracker.init(img, bbox)
 cap.set(cv2.CAP_PROP_POS_FRAMES, 0) 
 frameNo=0
+
+# ### Step 4
+# For each frame, print the bounding box on the image and save it.
+
+# ### Step 5
+# Select a different tracker (e.g. CSRT) and repeat steps 2, 3 and 4.
 
 while frameNo < 15:
     # Read a new frame
@@ -119,7 +126,7 @@ while frameNo < 15:
     
     plt.imshow(img_rgb)
     frame_filename = f"{video_name}_{tracker_type}_frame_{frameNo:03d}.jpg"
-    cv2.imwrite(os.path.join(working_dir, frame_filename), img)
+    cv2.imwrite(os.path.join(tracker_frame_dir, frame_filename), img)
     plt.axis('off')
     plt.show()
     plt.draw()
@@ -135,15 +142,20 @@ cap.release()
 cv2.destroyAllWindows()
 # %%
 
-# ### Step 4
-# For each frame, print the bounding box on the image and save it.
 
-
-# ### Step 5
-# Select a different tracker (e.g. CSRT) and repeat steps 2, 3 and 4.
 
 # ### Step 6
 # Compare the results:
 # * Do you see any differences? If so, what are they?
+
+# Yes, KSF tracker works faster but fails if template get distorted, the CSRT works even in case of minor jbject rotation or perspective distortion.
+
 # * Does one tracker perform better than the other? In what way?
+
+# All trackers works pretty good in general MV application in machinery with stable ROI and small perspecpective distortion. 
+# The KSF seems the fastest one but less robust than others and fails quickly if object angle changed.
+# It was challenging to find a machinery video where KSF fails.
+# However the processing speed is the key factor in robotics and machinery MV inspection applications
+# and KSF looks pretty good for i
+# CSRT is amazingly robust  but works relatively slow
 # 
