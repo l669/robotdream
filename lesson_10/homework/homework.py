@@ -154,9 +154,9 @@ cv2.destroyAllWindows()
 
 # All trackers works pretty good in general MV application in machinery with stable ROI and small perspecpective distortion. 
 # The KSF seems the fastest one but less robust than others and fails quickly if object angle changed.
-# It was challenging to find a machinery video where KSF fails.
+# But tt was challenging to find a machinery video where KSF fails.
 # However the processing speed is the key factor in robotics and machinery MV inspection applications
-# and KSF looks pretty good for i
+# and KSF looks pretty good for such applications
 # CSRT is amazingly robust  but works relatively slow
-# MIL tracker should be invariant to background changes but it is not so robust as CSRT with about the same speed
+# MIL tracker should be invariant to background changes but it is not so robust as CSRT for this video with about the same speed
 
