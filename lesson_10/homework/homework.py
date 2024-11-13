@@ -11,8 +11,6 @@
 
 import os
 import cv2
-#import pickle
-import numpy as np
 from matplotlib import pyplot as plt
 
 # Load the video
@@ -37,13 +35,13 @@ cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
 ok, img = cap.read()
 if not ok:
    print("End of video.")
+   
 #resize because it is too large   
 #img = cv2.resize(img, (img.shape[1] // 2, img.shape[0] // 2))
  
 #bbox = cv2.selectROI('Selector',img,False)
 #print(bbox)
-cv2.destroyAllWindows()
-#bbox = ((1312, 532, 361, 418))
+#cv2.destroyAllWindows()
 bbox=(312, 118, 132, 151)
 #print(bbox)
 x1, y1 = bbox[0], bbox[1]
