@@ -61,7 +61,7 @@ plt.imshow(img)
 # I borrowed the below code from lecture reference but limited to supported by my version
 (major_ver, minor_ver, subminor_ver) = (cv2.__version__).split('.')
 tracker_types = [ 'MIL','KCF',  'CSRT']
-tracker_type = tracker_types[2]
+tracker_type = tracker_types[1]
  
 if int(minor_ver) < 3:
         tracker = cv2.Tracker_create(tracker_type)
